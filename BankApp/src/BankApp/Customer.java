@@ -41,7 +41,6 @@ public class Customer implements AccountInfo, java.io.Serializable{
 		{
 			InputManager inputManager = new InputManager();
 			System.out.println("Account is Closed!");
-			inputManager.Continue();
 			return false;	
 		}
 		else

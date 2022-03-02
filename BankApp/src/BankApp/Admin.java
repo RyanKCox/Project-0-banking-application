@@ -111,12 +111,12 @@ public class Admin implements java.io.Serializable {
 	{
 		nAccountNumber = n;
 	}
-	//	public Customer GetCustomer()
-//	{
-//		return Main.user;
-//	}
-//	public void SetCustomer(Customer c)
-//	{
-//		Main.user = c;
-//	}
+	public boolean GetManagerStatus()
+	{
+		return bIsManager;
+	}
+	public void SetManagerStatus(boolean bStatus)
+	{
+		bIsManager = bStatus;
+	}
 }

@@ -32,6 +32,7 @@ public class AdminDatabase extends Database<Admin> implements java.io.Serializab
 
 		newAdmin.SetActNumber(this.AssignAccountNumber());
 		AddAccount(newAdmin);
+		System.out.println(newAdmin.GetUsername()+" has been added!");
 		return newAdmin.GetActNumber();
 		
 	}
@@ -40,7 +41,11 @@ public class AdminDatabase extends Database<Admin> implements java.io.Serializab
 		dataBase.put(newAdmin.GetActNumber(), newAdmin);
 	}
 
-	
+	public void MakeManager(int nAdmin)
+	{
+		 this.GetAccount(nAdmin).SetManagerStatus(true);
+		 System.out.println(this.GetAccount(nAdmin).GetUsername()+" has been given manager access");
+	}
 	//Checks the password for the account given, returns false if failed
 	public boolean CheckPassword(int nAccount, String sPass)
 	{
@@ -70,7 +75,7 @@ public class AdminDatabase extends Database<Admin> implements java.io.Serializab
 	{
 		for(Map.Entry m :dataBase.entrySet())
 		{
-			Customer user = (Customer)m.getValue();
+			Admin user = (Admin)m.getValue();
 			
 			if(user.GetUsername().equalsIgnoreCase(sName))
 			{
@@ -81,40 +86,3 @@ public class AdminDatabase extends Database<Admin> implements java.io.Serializab
 		
 	}
 }
-
-//public int Login()
-//{
-//	InputManager inputManager = new InputManager();
-//	int nAccount = 0;
-//	nAccount = FindAccount(inputManager.GetUserInputAsString("Enter Username: "));
-//	if(nAccount == 0)
-//	{
-//		System.out.println("User not found!");
-//	}
-//	else
-//	{
-//		if(!CheckPassword(nAccount,inputManager.GetUserInputAsString("Enter Password: ")))
-//		{
-//			System.out.println("Password Incorrect!");
-//		}
-//		else
-//			return nAccount;
-//	}
-//	return nAccount;
-//}
-
-//public int AssignAccountNumber()
-//{
-//	int nKey = 0;
-//	for(int i = 1; nKey == 0; i++)
-//	{
-//		if(!adminBase.containsKey(i))
-//			nKey=i;
-//	}
-//	return nKey;
-//}	
-
-//public Admin GetAccount(int nAccount)
-//{
-//	return adminBase.get(nAccount);
-//}

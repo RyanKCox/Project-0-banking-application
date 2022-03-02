@@ -25,16 +25,6 @@ public class DatabaseManager implements java.io.Serializable{
 		userBase.nFocusCustomer = nCust;
 	}
 	
-//	public boolean LoadDatabase(String sFilePath)
-//	{
-//		boolean bSuccess = false;
-//		
-//		FileManager fileManager = new FileManager(sFilePath, sFilePath);
-//		
-//		
-//		return bSuccess;
-//	}
-//	
 	public CustomerDatabase GetUserBase()
 	{
 		return userBase;
@@ -52,5 +42,12 @@ public class DatabaseManager implements java.io.Serializable{
 		adminBase = admin;
 	}
 	
+	public boolean isFocusCustomer()
+	{
+		if(userBase.nFocusCustomer!=0)
+			return true;
+		else
+			return false;
+	}
 	
 }

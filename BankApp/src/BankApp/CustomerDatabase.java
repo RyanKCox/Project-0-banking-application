@@ -180,39 +180,3 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 
 
 }
-	//Returns the account number if Successful, 0 if not
-//	public int Login()
-//	{
-//		InputManager inputManager = new InputManager();
-//		int nAccount = 0;
-//		nAccount = FindAccount(inputManager.GetUserInputAsString("Enter Username: "));
-//		if(nAccount == 0)
-//		{
-//			System.out.println("User not found!");
-//		}
-//		else
-//		{
-//			if(!CheckPassword(nAccount,inputManager.GetUserInputAsString("Enter Password: ")))
-//			{
-//				System.out.println("Password Incorrect!");
-//			}
-//			else
-//				return nAccount;
-//		}
-//		return nAccount;
-//		
-//	}
-//public int AssignAccountNumber()
-//{
-//	int nKey = 0;
-//	for(int i = 1; nKey == 0; i++)
-//	{
-//		if(!userBase.containsKey(i))
-//			nKey=i;
-//	}
-//	return nKey;
-//}	
-//public Customer GetUser(int nAccount)
-//{
-//	return userBase.get(nAccount);
-//}

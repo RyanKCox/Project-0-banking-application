@@ -58,6 +58,7 @@ public class LoginScreen extends UserInterface{
 				//if no user sign in, find the default user
 				if(Main.databaseManager.GetFocusCustomer() == null)
 					Main.databaseManager.SetFocusCustomer(Main.databaseManager.GetUserBase().GetFirst().GetActNumber());
+				
 					//Main.user = Main.userBase.GetFirst();
 				
 				int nAdminAcct = 0;

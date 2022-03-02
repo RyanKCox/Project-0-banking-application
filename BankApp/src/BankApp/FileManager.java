@@ -15,92 +15,14 @@ public class FileManager {
 	FileInputStream fileIn;
 	ObjectOutputStream outStream;
 	ObjectInputStream inStream;
-	String sCustFile;
-	String sAdminFile;
+	String sFilePath;
 	
-	public FileManager(String sCust, String sAdmin)
+	public FileManager(String sPath)
 	{
-		sCustFile = sCust;
-		sAdminFile = sAdmin;
-	}
-//	
-//	public void saveDatabase()
-//	{
-//		try
-//		{
-//			//Customers
-//			fileOut = new FileOutputStream(sCustFile);
-//			outStream = new ObjectOutputStream(fileOut);
-//			outStream.writeObject(Main.userBase);
-//			fileOut.close();
-//			outStream.close();
-//			
-//			//Admin
-//			fileOut = new FileOutputStream(sAdminFile);
-//			outStream = new ObjectOutputStream(fileOut);
-//			outStream.writeObject(Main.adminBase);
-//			fileOut.close();
-//			outStream.close();
-//		}
-//		catch(IOException e)
-//		{
-//			e.printStackTrace();
-//		}
-//	}
-	public CustomerDatabase LoadCustomers()
-	{
-		CustomerDatabase userBase = null;
-		File fileCheck = new File(sCustFile);
-		if(fileCheck.length() == 0)
-		{
-			userBase= new CustomerDatabase();
-		}
-		else
-		{
-			try 
-			{
-				fileIn = new FileInputStream(sCustFile);
-				inStream = new ObjectInputStream(fileIn);
-				userBase = (CustomerDatabase)inStream.readObject();
-				fileIn.close();
-				inStream.close();
-					
-			} 
-			catch (ClassNotFoundException | IOException e) {
-				e.printStackTrace();
-			}
-		}
-		//Set focus customer
-		//Main.user = userBase.GetFirst();
-		return userBase;
-	}
-	public AdminDatabase LoadAdmin()
-	{
-		AdminDatabase adminBase = null;
-		File fileCheck = new File(sAdminFile);
-		if(fileCheck.length() == 0)
-		{
-			adminBase= new AdminDatabase();
-		}
-		else
-		{
-			try 
-			{
-				fileIn = new FileInputStream(sAdminFile);
-				inStream = new ObjectInputStream(fileIn);
-				adminBase = (AdminDatabase)inStream.readObject();
-				fileIn.close();
-				inStream.close();
-					
-			} 
-			catch (ClassNotFoundException | IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return adminBase;
+		sFilePath = sPath;
 	}
 
-	public void LoadDatabase(String sFilePath)
+	public void LoadDatabase()
 	{
 		
 			DatabaseManager databaseManager = null;
@@ -129,7 +51,7 @@ public class FileManager {
 		
 				
 	}
-	public void SaveDatabase(String sFilePath)
+	public void SaveDatabase()
 	{
 		try
 		{
