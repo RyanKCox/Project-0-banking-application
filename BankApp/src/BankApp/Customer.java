@@ -69,7 +69,6 @@ public class Customer implements AccountInfo, java.io.Serializable{
 				String sDisplay = "Customer Withdrawl: "+nAmount;
 				System.out.println(sDisplay);
 				this.AddHistory(sDisplay);
-				inputManager.Continue();
 				
 			}
 
@@ -96,7 +95,6 @@ public class Customer implements AccountInfo, java.io.Serializable{
 			String sDisplay = "Customer Deposit: "+nAmount;
 			System.out.println(sDisplay);
 			this.AddHistory(sDisplay);
-			inputManager.Continue();
 			
 			//this.AddHistory("Customer Deposit: "+nAmount);
 //			if(nAmount > 0)
@@ -117,7 +115,7 @@ public class Customer implements AccountInfo, java.io.Serializable{
 	{
 		boolean bCheck = (this.nBalance - n >= 0)?true:false;
 		if(!bCheck)
-			System.out.println("Insuffecient Funds! Transfer canceled!");
+			System.out.println("Insuffecient Funds! Action canceled!");
 		return bCheck;
 	
 	}
@@ -133,20 +131,14 @@ public class Customer implements AccountInfo, java.io.Serializable{
 		System.out.println("Account type: "+this.GetTypeAsString());
 		System.out.println("Account status: " +this.GetStatusAsString());
 		System.out.println("Account number: "+this.GetActNumber());
-		InputManager inputManager = new InputManager();
-		inputManager.Continue();
 	}
 	public void DisplayBalance()
 	{
 		System.out.println("Account Balance: "+this.nBalance);
-		InputManager inputManager = new InputManager();
-		inputManager.Continue();
 	}
 	public void DisplayAccountNumber()
 	{
 		System.out.println("Account Number: "+this.nAccountNumber);
-		InputManager inputManager = new InputManager();
-		inputManager.Continue();
 	}
 	public void DisplayUserName()
 	{
@@ -183,8 +175,6 @@ public class Customer implements AccountInfo, java.io.Serializable{
 		}
 		else
 			System.out.println("No History Available");
-		InputManager inputManager = new InputManager();
-		inputManager.Continue();
 	}
 	
 	//Get and set methods for private variables

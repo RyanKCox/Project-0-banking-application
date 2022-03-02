@@ -5,21 +5,22 @@ import java.util.Map;
 
 public class CustomerDatabase extends Database<Customer> implements java.io.Serializable{
 	
-	//Map<Integer, Customer> userBase = new HashMap<Integer,Customer>();
-	//int nFocusUser;
+	int nFocusCustomer = 0;
 	
 	//Add a blank user to start a new Customerbase
 	public CustomerDatabase()
 	{
-		Customer user = new Customer(0,this.AssignAccountNumber(),"BlankUser","Password",false);
+		Customer user = new Customer(0,this.AssignAccountNumber(),"Ryan","Cox",false);
 		this.AddAccount(user);
-		Main.user = user;
+		nFocusCustomer = user.GetActNumber();
+		//Main.user = user;
 	}
 	
 	//functionality
 	public void Transfer()
 	{
-		if(!Main.user.CheckStatus())
+		
+		if(!GetFocusCustomer().CheckStatus())
 		{
 			return;
 		}
@@ -48,10 +49,10 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 				do
 				{
 					nAmount = inputManager.GetUserInputAsInt("How much would you like to transfer? ");
-					if(Main.user.OverdraftCheck(nAmount))
+					if(GetFocusCustomer().OverdraftCheck(nAmount))
 					{
 						//deduct from user account
-						Main.user.SetBalance(Main.user.GetBalance() - nAmount);
+						GetFocusCustomer().SetBalance(GetFocusCustomer().GetBalance() - nAmount);
 						//add to destination account
 						this.dataBase.get(nDestination).SetBalance(this.dataBase.get(nDestination).GetBalance()+nAmount);
 						
@@ -59,8 +60,7 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 						
 						String sDisplay = "Customer Transfer to Account:"+nDestination+" Amount: "+nAmount;
 						System.out.println(sDisplay);
-						Main.user.AddHistory(sDisplay);
-						inputManager.Continue();
+						GetFocusCustomer().AddHistory(sDisplay);
 						
 						//Main.user.AddHistory("Customer Transfer to Account:"+nDestination+" Amount: "+nAmount);
 					}
@@ -101,9 +101,9 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 		
 		newUser.SetPassword(inputManager.GetUserInputAsString("Please Eneter your Password: "));
 		newUser.SetType(inputManager.GetUserInputAsBoolean("Is this a joint account? \nPlease enter Yes or No"));
-		newUser.Deposit();
-		//newUser.SetBalance(inputManager.GetUserInputAsInt("How much would you like to deposit?"));
-		//newUser.AddHistory("Initial Deposit: "+newUser.GetBalance());
+		//newUser.Deposit();
+		newUser.SetBalance(inputManager.GetUserInputAsInt("How much would you like to deposit?"));
+		newUser.AddHistory("Initial Deposit: "+newUser.GetBalance());
 		newUser.SetActNumber(this.AssignAccountNumber());
 		AddAccount(newUser);
 		return newUser.GetActNumber();
@@ -140,11 +140,18 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 			}
 			else
 			{
-				Main.user = GetAccount(nAccount);
+				nFocusCustomer = nAccount;
+				//Main.user = GetAccount(nAccount);
 			}
 		}
 		while(nAccount <=0);
 	}
+
+	public Customer GetFocusCustomer()
+	{
+		return this.GetAccount(nFocusCustomer);
+	}
+	
 	//Checks the password for the account given, returns false if failed
 	public boolean CheckPassword(int nAccount, String sPass)
 	{

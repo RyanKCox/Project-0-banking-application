@@ -19,6 +19,8 @@ public class CustomerAccountScreen extends UserInterface{
 	public void FollowInput(int nInput) {
 		//boolean bExit = false;
 		this.bExit = false;
+		Customer user = Main.databaseManager.GetFocusCustomer();
+		InputManager inputManager = new InputManager();
 		//while(!bExit)
 		//{
 			switch(nInput)
@@ -26,22 +28,34 @@ public class CustomerAccountScreen extends UserInterface{
 	
 			case 1: 
 				//Main.user.GetBalance();
-				Main.user.DisplayBalance();
+				user.DisplayBalance();
+				inputManager.Continue();
+				//Main.user.DisplayBalance();
 				break;
 			case 2: 
-				Main.user.Withdraw();
+				user.Withdraw();
+				inputManager.Continue();
+				//Main.user.Withdraw();
 				break;
 			case 3: 
-				Main.user.Deposit();
+				user.Deposit();
+				inputManager.Continue();
+				//Main.user.Deposit();
 				break;
 			case 4:
-				Main.userBase.Transfer();
+				Main.databaseManager.GetUserBase().Transfer();
+				inputManager.Continue();
+				//Main.userBase.Transfer();
 				break;
 			case 5:
-				Main.user.DisplayHistory();
+				user.DisplayHistory();
+				inputManager.Continue();
+				//Main.user.DisplayHistory();
 				break;
 			case 6:
-				Main.user.DisplayAccountNumber();
+				user.DisplayAccountNumber();
+				inputManager.Continue();
+				//Main.user.DisplayAccountNumber();
 				break;
 			case 7://exit this screen
 				System.out.println("Returning to Log-in screen");

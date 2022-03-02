@@ -9,9 +9,13 @@ public class AdminDatabase extends Database<Admin> implements java.io.Serializab
 
 	public AdminDatabase()
 	{
-		Admin user =new Admin("Ryan","Cox",AssignAccountNumber());
+		Admin user =new Admin("Ryan","Cox",AssignAccountNumber(), true);
 		this.AddAccount(user);
-		Main.admin = user;
+		//Main.admin = user;
+		
+		//Set up an employee
+		Admin employee = new Admin("Test","Test",AssignAccountNumber(),false);
+		this.AddAccount(employee);
 	}
 	public int Register()
 	{

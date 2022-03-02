@@ -3,7 +3,7 @@ package BankApp;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Database<T> implements DatabaseInterface<T>{
+public abstract class Database<T> implements DatabaseInterface<T>, java.io.Serializable{
 
 	Map<Integer,T> dataBase = new HashMap<Integer,T>();
 
@@ -40,6 +40,7 @@ public abstract class Database<T> implements DatabaseInterface<T>{
 				return nAccount;
 		}
 		return nAccount;
+		
 	}
 
 	

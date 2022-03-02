@@ -27,7 +27,8 @@ public class LoginScreen extends UserInterface{
 				int nUserAcct = 0;
 //				do
 //				{
-				nUserAcct = Main.userBase.Login();
+				nUserAcct = Main.databaseManager.GetUserBase().Login();
+				//nUserAcct = Main.userBase.Login();
 				if(nUserAcct ==0)
 				{
 					inputManager.Continue();
@@ -35,13 +36,16 @@ public class LoginScreen extends UserInterface{
 				}
 //				}
 //				while(nUserAcct == 0);
-				Main.user = Main.userBase.GetAccount(nUserAcct);
+				Main.databaseManager.SetFocusCustomer(nUserAcct);
+				//Main.user = Main.userBase.GetAccount(nUserAcct);
 				CustScreen.RunScreen();
 				break;
 				
 			case 2: //Follow logic for a new user
-				nUserAcct = Main.userBase.Register();
-				Main.user = (Customer)Main.userBase.GetAccount(nUserAcct);
+				//nUserAcct = Main.userBase.Register();
+				nUserAcct = Main.databaseManager.GetUserBase().Register();
+				Main.databaseManager.SetFocusCustomer(nUserAcct);
+				//Main.user = (Customer)Main.userBase.GetAccount(nUserAcct);
 				CustScreen = new CustomerAccountScreen();
 				CustScreen.RunScreen();
 				break;
@@ -52,14 +56,15 @@ public class LoginScreen extends UserInterface{
 				break;
 			case 4:
 				//if no user sign in, find the default user
-				if(Main.user == null)
-					Main.user = Main.userBase.GetFirst();
+				if(Main.databaseManager.GetFocusCustomer() == null)
+					Main.databaseManager.SetFocusCustomer(Main.databaseManager.GetUserBase().GetFirst().GetActNumber());
+					//Main.user = Main.userBase.GetFirst();
 				
-				AdminScreen nextScreen = new AdminScreen();
 				int nAdminAcct = 0;
 //				do
 //				{
-				nAdminAcct = Main.adminBase.Login();
+				nAdminAcct = Main.databaseManager.GetAdminBase().Login();
+				//nAdminAcct = Main.adminBase.Login();
 				if(nAdminAcct ==0)
 				{
 					inputManager.Continue();
@@ -67,7 +72,8 @@ public class LoginScreen extends UserInterface{
 				}
 //				}
 //				while(nAdminAcct == 0);
-				Main.admin = Main.adminBase.GetAccount(nAdminAcct);
+				//Main.admin = Main.adminBase.GetAccount(nAdminAcct);
+				AdminScreen nextScreen = new AdminScreen(nAdminAcct);
 				nextScreen.RunScreen();
 				break;
 			}

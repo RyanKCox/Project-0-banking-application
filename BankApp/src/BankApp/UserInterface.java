@@ -17,8 +17,7 @@ public abstract class UserInterface {
 		{
 			this.DisplayScreen();
 			//this.ActivateScreen();
-			this.FollowInput(this.GetInput());			
-			
+			this.FollowInput(this.GetInput());	
 		}
 	
 	}

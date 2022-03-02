@@ -23,30 +23,30 @@ public class FileManager {
 		sCustFile = sCust;
 		sAdminFile = sAdmin;
 	}
-	
-	public void saveDatabase()
-	{
-		try
-		{
-			//Customers
-			fileOut = new FileOutputStream(sCustFile);
-			outStream = new ObjectOutputStream(fileOut);
-			outStream.writeObject(Main.userBase);
-			fileOut.close();
-			outStream.close();
-			
-			//Admin
-			fileOut = new FileOutputStream(sAdminFile);
-			outStream = new ObjectOutputStream(fileOut);
-			outStream.writeObject(Main.adminBase);
-			fileOut.close();
-			outStream.close();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
+//	
+//	public void saveDatabase()
+//	{
+//		try
+//		{
+//			//Customers
+//			fileOut = new FileOutputStream(sCustFile);
+//			outStream = new ObjectOutputStream(fileOut);
+//			outStream.writeObject(Main.userBase);
+//			fileOut.close();
+//			outStream.close();
+//			
+//			//Admin
+//			fileOut = new FileOutputStream(sAdminFile);
+//			outStream = new ObjectOutputStream(fileOut);
+//			outStream.writeObject(Main.adminBase);
+//			fileOut.close();
+//			outStream.close();
+//		}
+//		catch(IOException e)
+//		{
+//			e.printStackTrace();
+//		}
+//	}
 	public CustomerDatabase LoadCustomers()
 	{
 		CustomerDatabase userBase = null;
@@ -70,6 +70,8 @@ public class FileManager {
 				e.printStackTrace();
 			}
 		}
+		//Set focus customer
+		//Main.user = userBase.GetFirst();
 		return userBase;
 	}
 	public AdminDatabase LoadAdmin()
@@ -98,18 +100,50 @@ public class FileManager {
 		return adminBase;
 	}
 
-	
-//	try
-//	{
-//		FileOutputStream fileOut = new FileOutputStream("./src/serialization.ser");
-//		ObjectOutputStream out = new ObjectOutputStream(fileOut);
-//		out.writeObject(e);
-//		out.close();
-//		fileOut.close();
-//	
-//	}
-//	catch(IOException ex)
-//	{
-//		ex.printStackTrace();
-//	}
+	public void LoadDatabase(String sFilePath)
+	{
+		
+			DatabaseManager databaseManager = null;
+			File fileCheck = new File(sFilePath);
+			if(fileCheck.length() == 0)
+			{
+				databaseManager = new DatabaseManager();
+			}
+			else
+			{
+				try 
+				{
+					fileIn = new FileInputStream(sFilePath);
+					inStream = new ObjectInputStream(fileIn);
+					databaseManager = (DatabaseManager)inStream.readObject();
+					fileIn.close();
+					inStream.close();
+						
+				} 
+				catch (ClassNotFoundException | IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			Main.databaseManager = databaseManager;
+		
+				
+	}
+	public void SaveDatabase(String sFilePath)
+	{
+		try
+		{
+			//Attempt to save database out
+			fileOut = new FileOutputStream(sFilePath);
+			outStream = new ObjectOutputStream(fileOut);
+			outStream.writeObject(Main.databaseManager);
+			fileOut.close();
+			outStream.close();
+			
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 }
