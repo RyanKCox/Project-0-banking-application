@@ -1,6 +1,6 @@
 package BankApp;
 
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerDatabase extends Database<Customer> implements java.io.Serializable{
@@ -10,11 +10,10 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 	//Add a blank user to start a new Customerbase
 	public CustomerDatabase()
 	{
+		//Customer Account number should never be 0
+		//using the 0 account to check if a customer is currently "in focus"
 		Customer user = new Customer(0,0,null,null,false);
-//		Customer user = new Customer(0,this.AssignAccountNumber(),"Ryan","Cox",false);
 		this.AddAccount(user);
-		//nFocusCustomer = user.GetActNumber();
-		//Main.user = user;
 	}
 	
 	//functionality
@@ -30,8 +29,8 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 		//first get the destination account
 		int nDestination ;
 		int nAmount;
-		do
-		{
+//		do
+//		{
 			//we should have no account with an account number of 0
 			nDestination = 0;
 			nDestination = inputManager.GetUserInputAsInt("Enter the Account Number you will transfer to: ");
@@ -47,8 +46,8 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 				
 				//Set the transfer amount to a negative for value check
 				nAmount = -1;
-				do
-				{
+//				do
+//				{
 					nAmount = inputManager.GetUserInputAsInt("How much would you like to transfer? ");
 					if(GetFocusCustomer().OverdraftCheck(nAmount))
 					{
@@ -59,21 +58,25 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 						
 						System.out.println("Transfer Successful");
 						
+						//Add History to focus account
 						String sDisplay = "Customer Transfer to Account:"+nDestination+" Amount: "+nAmount;
 						System.out.println(sDisplay);
 						GetFocusCustomer().AddHistory(sDisplay);
 						
-						//Main.user.AddHistory("Customer Transfer to Account:"+nDestination+" Amount: "+nAmount);
+						//Add History to destination account
+						sDisplay = "Customer received ammount:"+nAmount+" from account: "+GetFocusCustomer().GetActNumber();
+						GetAccount(nDestination).AddHistory(sDisplay);
+						
 					}
-					else
-					{
-						nAmount = -1;
-					}
-				}
-				while(nAmount < 0);
+//					else
+//					{
+//						nAmount = -1;
+//					}
+//				}
+//				while(nAmount < 0);
 			}
-		}
-		while(!this.dataBase.containsKey(nDestination));
+//		}
+//		while(!this.dataBase.containsKey(nDestination));
 	}	
 	public void AddAccount(Customer user)
 	{
@@ -102,7 +105,6 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 		
 		newUser.SetPassword(inputManager.GetUserInputAsString("Please Eneter your Password: "));
 		newUser.SetType(inputManager.GetUserInputAsBoolean("Is this a joint account? \nPlease enter Yes or No"));
-		//newUser.Deposit();
 		newUser.SetBalance(inputManager.GetUserInputAsInt("How much would you like to deposit?"));
 		newUser.AddHistory("Initial Deposit: "+newUser.GetBalance());
 		newUser.SetActNumber(this.AssignAccountNumber());
@@ -115,11 +117,14 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 		{
 			for(Map.Entry m :dataBase.entrySet())
 			{
-				Customer user = (Customer)m.getValue();
-				
-				if(user.GetUsername().equalsIgnoreCase(sUserName))
+				if((int)m.getKey()!=0)
 				{
-					return user.GetActNumber();
+					Customer user = (Customer)m.getValue();
+					
+					if(user.GetUsername().equalsIgnoreCase(sUserName))
+					{
+						return user.GetActNumber();
+					}
 				}
 			}
 		}
@@ -175,11 +180,14 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 	{
 		for(Map.Entry m :dataBase.entrySet())
 		{
-			Customer user = (Customer)m.getValue();
-			
-			if(user.GetUsername().equalsIgnoreCase(sName))
+			if((int)m.getKey()!=0)
 			{
-				return false;
+				Customer user = (Customer)m.getValue();
+				
+				if(user.GetUsername().equalsIgnoreCase(sName))
+				{
+					return false;
+				}
 			}
 		}
 		return true;

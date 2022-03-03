@@ -35,6 +35,7 @@ public abstract class Database<T> implements DatabaseInterface<T>, java.io.Seria
 			if(!CheckPassword(nAccount,inputManager.GetUserInputAsString("Enter Password: ")))
 			{
 				System.out.println("Password Incorrect!");
+				nAccount = 0;
 			}
 			else
 				return nAccount;

@@ -60,6 +60,7 @@ public class CustomerAccountScreen extends UserInterface{
 			case 7://exit this screen
 				System.out.println("Returning to Log-in screen");
 				this.bExit = true;
+				Main.databaseManager.SetFocusCustomer(0);
 				break;
 			}
 		//}

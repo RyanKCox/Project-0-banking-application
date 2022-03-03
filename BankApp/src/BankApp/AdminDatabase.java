@@ -1,21 +1,17 @@
 package BankApp;
 
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.Map;
 
 public class AdminDatabase extends Database<Admin> implements java.io.Serializable{
 	
-	//Map<Integer,Admin> adminBase = new HashMap<Integer,Admin>();
 
 	public AdminDatabase()
 	{
-		Admin user =new Admin("Ryan","Cox",AssignAccountNumber(), true);
+		//Should always have a master manager account to add others
+		Admin user =new Admin("Mgr1","Mgr",AssignAccountNumber(), true);
 		this.AddAccount(user);
-		//Main.admin = user;
 		
-		//Set up an employee
-		Admin employee = new Admin("Test","Test",AssignAccountNumber(),false);
-		this.AddAccount(employee);
 	}
 	public int Register()
 	{
@@ -61,6 +57,7 @@ public class AdminDatabase extends Database<Admin> implements java.io.Serializab
 			
 			
 	}
+	
 	//Checks the password for the account given, returns false if failed
 	public boolean CheckPassword(int nAccount, String sPass)
 	{

@@ -40,7 +40,7 @@ public class Customer implements AccountInfo, java.io.Serializable{
 		if(!bStatus)
 		{
 			InputManager inputManager = new InputManager();
-			System.out.println("Account is Closed!");
+			System.out.println("Account is Closed!\nAsk an employee to activate");
 			return false;	
 		}
 		else

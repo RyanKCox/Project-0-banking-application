@@ -150,6 +150,8 @@ public class AdminScreen extends UserInterface{
 			case 7: //change selected user
 				Main.databaseManager.GetUserBase().ChangeFocusCustomer();
 				UpdateCustomer();
+				System.out.println("Focused Customer Account: "+Main.databaseManager.GetFocusCustomer().GetActNumber()+
+						"\nUsername: "+Main.databaseManager.GetFocusCustomer().GetUsername());
 				inputManager.Continue();
 				break;
 				
@@ -162,6 +164,7 @@ public class AdminScreen extends UserInterface{
 			case 9://Exit this screen
 				System.out.println("Exiting App");
 				bExit = true;
+				Main.databaseManager.SetFocusCustomer(0);
 				break;
 		}
 		
@@ -212,11 +215,14 @@ public class AdminScreen extends UserInterface{
 				case 4: //change selected user
 					Main.databaseManager.GetUserBase().ChangeFocusCustomer();
 					UpdateCustomer();
+					System.out.println("Focused Customer Account: "+Main.databaseManager.GetFocusCustomer().GetActNumber()+
+										"\nUsername: "+Main.databaseManager.GetFocusCustomer().GetUsername());
 					inputManager.Continue();
 					break;
 					
 				case 5://Exit this screen
 					bExit = true;
+					Main.databaseManager.SetFocusCustomer(0);
 					break;
 				}
 		

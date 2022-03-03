@@ -1,10 +1,9 @@
 package BankApp;
 
 public class Main {
-
-	static DatabaseManager databaseManager = null;
 	
-	//UserInterface class - adding continue to RunScreen()
+	//Should only be one database manager 
+	static DatabaseManager databaseManager = null;
 	
 	public static void main(String[] args) {
 		
@@ -17,7 +16,7 @@ public class Main {
 		
 		
 		//Start the App with the login screen
-		//Determines the user of the app
+		//Determines the user of the App
 		login.RunScreen();
 		
 		
