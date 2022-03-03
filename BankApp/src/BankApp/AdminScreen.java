@@ -41,63 +41,6 @@ public class AdminScreen extends UserInterface{
 		{
 			EmployeeScreen(nInput);
 		}
-//		
-//		this.bExit = false;
-//		Customer user = Main.databaseManager.GetFocusCustomer();
-//		Admin admin = Main.databaseManager.GetAdminBase().GetAccount(nAdmin);
-//		InputManager inputManager = new InputManager();
-////		
-////		while(!bExit)
-////		{
-//			switch(nInput)
-//			{
-//				case 1: //Display selected customer
-//					Main.databaseManager.GetFocusCustomer().DisplayCustomer();
-//					inputManager.Continue();
-//					//user.DisplayCustomer();
-//					//Main.user.DisplayCustomer();
-//					break;
-//				case 2: //toggle account status
-//					
-//					admin.ToggleStatus();
-//					UpdateCustomer();
-//					inputManager.Continue();
-//					break;
-//				case 3: //withdraw from customer
-//					if(admin.isManager())
-//						user.Withdraw();
-//					inputManager.Continue();
-//						//Main.user.Withdraw();
-//					break;
-//				case 4: //deposit from customer
-//					if(admin.isManager())
-//						user.Deposit();
-//					inputManager.Continue();
-//						//Main.user.Deposit();
-//					break;
-//				case 5: //transfer from current customer to different account
-//					if(admin.isManager())
-//						Main.databaseManager.GetUserBase().Transfer();
-//					inputManager.Continue();
-//						//Main.userBase.Transfer();
-//					break;
-//				case 6: //display customer history
-//					user.DisplayHistory();
-//					inputManager.Continue();
-//					//Main.user.DisplayHistory();
-//					break;
-//				case 7: //change selected user
-//					Main.databaseManager.GetUserBase().ChangeFocusCustomer();
-//					//Main.userBase.ChangeFocusCustomer();
-//					UpdateCustomer();
-//					inputManager.Continue();
-//					break;
-//				case 8://Exit this screen
-//					System.out.println("Exiting App");
-//					bExit = true;
-//					break;
-//				}
-////			}
 	}
 
 	public void UpdateScreen()

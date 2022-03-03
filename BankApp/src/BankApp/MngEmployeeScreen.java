@@ -18,8 +18,8 @@ public class MngEmployeeScreen extends UserInterface {
 		{
 		case 1://Change employee to manager
 			int nAccount = 0;
-			nAccount = Main.databaseManager.GetAdminBase().FindAccount(inputManager.GetUserInputAsString("Enter Username of account: "));
-			Main.databaseManager.GetAdminBase().MakeManager(nAccount);
+			//nAccount = Main.databaseManager.GetAdminBase().FindAccount(inputManager.GetUserInputAsString("Enter Username of account: "));
+			Main.databaseManager.GetAdminBase().MakeManager();
 			inputManager.Continue();
 			break;
 			

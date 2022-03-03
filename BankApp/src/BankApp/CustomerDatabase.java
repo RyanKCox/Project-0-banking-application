@@ -10,9 +10,10 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 	//Add a blank user to start a new Customerbase
 	public CustomerDatabase()
 	{
-		Customer user = new Customer(0,this.AssignAccountNumber(),"Ryan","Cox",false);
+		Customer user = new Customer(0,0,null,null,false);
+//		Customer user = new Customer(0,this.AssignAccountNumber(),"Ryan","Cox",false);
 		this.AddAccount(user);
-		nFocusCustomer = user.GetActNumber();
+		//nFocusCustomer = user.GetActNumber();
 		//Main.user = user;
 	}
 	
@@ -110,14 +111,21 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 	}
 	public int FindAccount(String sUserName)
 	{
-		for(Map.Entry m :dataBase.entrySet())
+		try
 		{
-			Customer user = (Customer)m.getValue();
-			
-			if(user.GetUsername().equalsIgnoreCase(sUserName))
+			for(Map.Entry m :dataBase.entrySet())
 			{
-				return user.GetActNumber();
+				Customer user = (Customer)m.getValue();
+				
+				if(user.GetUsername().equalsIgnoreCase(sUserName))
+				{
+					return user.GetActNumber();
+				}
 			}
+		}
+		catch(NullPointerException e)
+		{
+			return 0;
 		}
 		return 0;
 	}
@@ -130,10 +138,10 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 	{
 		InputManager inputManager = new InputManager();
 		int nAccount = 0;
-		do
-		{
+//		do
+//		{
 			nAccount = inputManager.GetUserInputAsInt("Enter an Account Number:");
-			if(!this.dataBase.containsKey(nAccount))
+			if(!this.dataBase.containsKey(nAccount) || nAccount==0)
 			{
 				System.out.println("That Account does not exist!");
 				nAccount = 0;
@@ -143,8 +151,8 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 				nFocusCustomer = nAccount;
 				//Main.user = GetAccount(nAccount);
 			}
-		}
-		while(nAccount <=0);
+//		}
+//		while(nAccount <=0);
 	}
 
 	public Customer GetFocusCustomer()

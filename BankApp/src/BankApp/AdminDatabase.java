@@ -41,10 +41,25 @@ public class AdminDatabase extends Database<Admin> implements java.io.Serializab
 		dataBase.put(newAdmin.GetActNumber(), newAdmin);
 	}
 
-	public void MakeManager(int nAdmin)
+	public void MakeManager()
 	{
-		 this.GetAccount(nAdmin).SetManagerStatus(true);
-		 System.out.println(this.GetAccount(nAdmin).GetUsername()+" has been given manager access");
+
+		InputManager inputManager = new InputManager();
+		String sAccount = null;
+		sAccount = inputManager.GetUserInputAsString("Enter an Account Name:");
+
+		int nAccountNumber = this.FindAccount(sAccount);
+			if(nAccountNumber==0)
+			{
+				System.out.println("That Account does not exist!");
+			}
+			else
+			{
+				 this.GetAccount(nAccountNumber).SetManagerStatus(true);
+				 System.out.println(this.GetAccount(nAccountNumber).GetUsername()+" has been given manager access");
+			}
+			
+			
 	}
 	//Checks the password for the account given, returns false if failed
 	public boolean CheckPassword(int nAccount, String sPass)
