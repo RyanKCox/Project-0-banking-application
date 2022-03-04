@@ -29,8 +29,6 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 		//first get the destination account
 		int nDestination ;
 		int nAmount;
-//		do
-//		{
 			//we should have no account with an account number of 0
 			nDestination = 0;
 			nDestination = inputManager.GetUserInputAsInt("Enter the Account Number you will transfer to: ");
@@ -40,43 +38,38 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 			{
 				System.out.println("Account not found!");
 			}
+			else if(nDestination == nFocusCustomer)
+			{
+				System.out.println("Cannot transfer to the same account!");				
+			}
 			else
 			{
 				//now we find the amount they want to transfer
 				
 				//Set the transfer amount to a negative for value check
 				nAmount = -1;
-//				do
-//				{
-					nAmount = inputManager.GetUserInputAsInt("How much would you like to transfer? ");
-					if(GetFocusCustomer().OverdraftCheck(nAmount))
-					{
-						//deduct from user account
-						GetFocusCustomer().SetBalance(GetFocusCustomer().GetBalance() - nAmount);
-						//add to destination account
-						this.dataBase.get(nDestination).SetBalance(this.dataBase.get(nDestination).GetBalance()+nAmount);
-						
-						System.out.println("Transfer Successful");
-						
-						//Add History to focus account
-						String sDisplay = "Customer Transfer to Account:"+nDestination+" Amount: "+nAmount;
-						System.out.println(sDisplay);
-						GetFocusCustomer().AddHistory(sDisplay);
-						
-						//Add History to destination account
-						sDisplay = "Customer received ammount:"+nAmount+" from account: "+GetFocusCustomer().GetActNumber();
-						GetAccount(nDestination).AddHistory(sDisplay);
-						
-					}
-//					else
-//					{
-//						nAmount = -1;
-//					}
-//				}
-//				while(nAmount < 0);
+				nAmount = inputManager.GetUserInputAsInt("How much would you like to transfer? ");
+				if(GetFocusCustomer().OverdraftCheck(nAmount))
+				{
+					//deduct from user account
+					GetFocusCustomer().SetBalance(GetFocusCustomer().GetBalance() - nAmount);
+					//add to destination account
+					this.dataBase.get(nDestination).SetBalance(this.dataBase.get(nDestination).GetBalance()+nAmount);
+					
+					System.out.println("Transfer Successful");
+					
+					//Add History to focus account
+					String sDisplay = "Customer Transfer to Account:"+nDestination+" Amount: "+nAmount;
+					System.out.println(sDisplay);
+					GetFocusCustomer().AddHistory(sDisplay);
+					
+					//Add History to destination account
+					sDisplay = "Customer received ammount:"+nAmount+" from account: "+GetFocusCustomer().GetActNumber();
+					GetAccount(nDestination).AddHistory(sDisplay);
+					
+				}
+
 			}
-//		}
-//		while(!this.dataBase.containsKey(nDestination));
 	}	
 	public void AddAccount(Customer user)
 	{
@@ -139,25 +132,25 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 	{
 		return (Customer)dataBase.entrySet().iterator().next().getValue();
 	}
-	public void ChangeFocusCustomer()
+	public boolean ChangeFocusCustomer()
 	{
 		InputManager inputManager = new InputManager();
 		int nAccount = 0;
-//		do
-//		{
-			nAccount = inputManager.GetUserInputAsInt("Enter an Account Number:");
-			if(!this.dataBase.containsKey(nAccount) || nAccount==0)
-			{
-				System.out.println("That Account does not exist!");
-				nAccount = 0;
-			}
-			else
-			{
-				nFocusCustomer = nAccount;
-				//Main.user = GetAccount(nAccount);
-			}
-//		}
-//		while(nAccount <=0);
+		boolean bSuccess = false;
+
+		nAccount = inputManager.GetUserInputAsInt("Enter an Account Number:");
+		if(!this.dataBase.containsKey(nAccount) || nAccount==0)
+		{
+			System.out.println("That Account does not exist!");
+			nAccount = 0;
+		}
+		else
+		{
+			nFocusCustomer = nAccount;
+			bSuccess = true;
+		}
+		return bSuccess;
+
 	}
 
 	public Customer GetFocusCustomer()

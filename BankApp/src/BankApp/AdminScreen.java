@@ -96,6 +96,7 @@ public class AdminScreen extends UserInterface{
 				{
 					admin.ToggleStatus();
 					UpdateCustomer();	
+					System.out.println(Main.databaseManager.GetFocusCustomer().GetStatusAsString());
 				}
 				else
 					System.out.println("No customer selected!");
@@ -148,10 +149,13 @@ public class AdminScreen extends UserInterface{
 				inputManager.Continue();
 				break;
 			case 7: //change selected user
-				Main.databaseManager.GetUserBase().ChangeFocusCustomer();
-				UpdateCustomer();
-				System.out.println("Focused Customer Account: "+Main.databaseManager.GetFocusCustomer().GetActNumber()+
-						"\nUsername: "+Main.databaseManager.GetFocusCustomer().GetUsername());
+				if(Main.databaseManager.GetUserBase().ChangeFocusCustomer())
+				{
+					UpdateCustomer();
+					System.out.println("Focused Customer Account: "+Main.databaseManager.GetFocusCustomer().GetActNumber()+
+							"\nUsername: "+Main.databaseManager.GetFocusCustomer().GetUsername());
+				
+				}
 				inputManager.Continue();
 				break;
 				
@@ -194,6 +198,7 @@ public class AdminScreen extends UserInterface{
 					{
 						admin.ToggleStatus();
 						UpdateCustomer();	
+						System.out.println(Main.databaseManager.GetFocusCustomer().GetStatusAsString());
 					}
 					else
 						System.out.println("No customer selected!");
@@ -213,10 +218,14 @@ public class AdminScreen extends UserInterface{
 					break;
 					
 				case 4: //change selected user
-					Main.databaseManager.GetUserBase().ChangeFocusCustomer();
-					UpdateCustomer();
-					System.out.println("Focused Customer Account: "+Main.databaseManager.GetFocusCustomer().GetActNumber()+
-										"\nUsername: "+Main.databaseManager.GetFocusCustomer().GetUsername());
+
+					if(Main.databaseManager.GetUserBase().ChangeFocusCustomer())
+					{
+						UpdateCustomer();
+						System.out.println("Focused Customer Account: "+Main.databaseManager.GetFocusCustomer().GetActNumber()+
+								"\nUsername: "+Main.databaseManager.GetFocusCustomer().GetUsername());
+					
+					}
 					inputManager.Continue();
 					break;
 					
