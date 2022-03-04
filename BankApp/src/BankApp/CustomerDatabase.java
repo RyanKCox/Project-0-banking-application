@@ -201,13 +201,23 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 	{
 		Customer newUser = new Customer();
 		InputManager inputManager = new InputManager();
+
+		String sUsername = "";
+		sUsername = inputManager.GetUserInputAsString("Please Enter your Username: ");
 		
-		do
+		//check if name is unique, if not, return and do not create
+		if(!NameCheck(sUsername))
 		{
-			newUser.SetUsername(inputManager.GetUserInputAsString("Please Eneter your Username: "));
+			System.out.println("That Username is already taken!");
+			return 0;
 		}
-		while(!NameCheck(newUser.GetUsername()));
 		
+//		do
+//		{
+//			newUser.SetUsername(inputManager.GetUserInputAsString("Please Eneter your Username: "));
+//		}
+//		while(!NameCheck(newUser.GetUsername()));
+		newUser.SetUsername(sUsername);
 		newUser.SetPassword(inputManager.GetUserInputAsString("Please Eneter your Password: "));
 		newUser.SetType(inputManager.GetUserInputAsBoolean("Is this a joint account? \nPlease enter Yes or No"));
 		newUser.SetBalance(inputManager.GetUserInputAsInt("How much would you like to deposit?"));

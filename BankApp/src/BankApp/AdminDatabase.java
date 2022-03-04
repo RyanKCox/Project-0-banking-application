@@ -18,11 +18,24 @@ public class AdminDatabase extends Database<Admin> implements java.io.Serializab
 		Admin newAdmin = new Admin();
 		InputManager inputManager = new InputManager();
 		
-		do
+//		do
+//		{
+//			newAdmin.SetUsername(inputManager.GetUserInputAsString("Please Eneter your Username: "));
+//		}
+//		while(!NameCheck(newAdmin.GetUsername()));
+		
+		String sUsername = "";
+		sUsername = inputManager.GetUserInputAsString("Please Enter your Username: ");
+		
+		//check if name is unique, if not, return and do not create
+		if(!NameCheck(sUsername))
 		{
-			newAdmin.SetUsername(inputManager.GetUserInputAsString("Please Eneter your Username: "));
+			System.out.println("That Username is already taken!");
+			return 0;
 		}
-		while(!NameCheck(newAdmin.GetUsername()));
+		
+		newAdmin.SetUsername(sUsername);
+		
 		
 		newAdmin.SetPassword(inputManager.GetUserInputAsString("Please Eneter your Password: "));
 
@@ -48,6 +61,10 @@ public class AdminDatabase extends Database<Admin> implements java.io.Serializab
 			if(nAccountNumber==0)
 			{
 				System.out.println("That Account does not exist!");
+			}
+			else if(this.GetAccount(nAccountNumber).GetManagerStatus())
+			{
+				System.out.println("This account is already a manager!");
 			}
 			else
 			{

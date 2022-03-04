@@ -37,6 +37,8 @@ public class LoginScreen extends UserInterface{
 			
 		case 2: //Follow logic for a new user
 			nUserAcct = Main.databaseManager.GetUserBase().Register();
+			if(nUserAcct ==0)
+				break;
 			Main.databaseManager.SetFocusCustomer(nUserAcct);
 			CustScreen = new CustomerAccountScreen();
 			CustScreen.RunScreen();
