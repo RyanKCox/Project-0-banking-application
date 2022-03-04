@@ -5,6 +5,8 @@ public class Main {
 	//Should only be one database manager 
 	static DatabaseManager databaseManager = null;
 	
+	//Create manager delete customer
+	
 	public static void main(String[] args) {
 		
 		//Load the database 

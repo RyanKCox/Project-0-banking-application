@@ -111,7 +111,7 @@ public class InputManager {
 	}
 	public void Continue()
 	{
-		System.out.println("Press any key to continue");
+		System.out.println("\nPress any key to continue");
 		myScanner.nextLine();
 	}
 

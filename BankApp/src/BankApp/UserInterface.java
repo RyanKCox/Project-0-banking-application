@@ -12,12 +12,11 @@ public abstract class UserInterface {
 	
 	public void RunScreen()
 	{
-		//this.DisplayScreen();
 		while(!bExit)
 		{
 			this.DisplayScreen();
-			//this.ActivateScreen();
 			this.FollowInput(this.GetInput());	
+			System.out.println("\n");
 		}
 	
 	}
@@ -34,10 +33,15 @@ public abstract class UserInterface {
 			
 			if((Integer)m.getKey() !=0)
 			{
-				sDisplay += m.getKey()+". ";
+				sDisplay += m.getKey()+".\t";
 			}
 			
 			sDisplay +=m.getValue();
+			
+			if((Integer)m.getKey() ==0 || (Integer)m.getKey() == Screen.entrySet().size()-1)
+			{
+				sDisplay +="\n";
+			}
 			System.out.println(sDisplay);
 		}
 		
@@ -50,7 +54,7 @@ public abstract class UserInterface {
 		int nInput = 0;
 		while(!bExit)
 		{
-			nInput = inputManager.GetUserInputAsInt("Please choose a number");
+			nInput = inputManager.GetUserInputAsInt("Please choose a number:");
 			if(nInput < Screen.size()-1 && nInput > 0)
 			{
 				return nInput;

@@ -124,12 +124,12 @@ public class Customer implements AccountInfo, java.io.Serializable{
 	//Displays all customer information
 	public void DisplayCustomer()
 	{
-		System.out.println("Username: "+this.GetUsername());
-		System.out.println("Password: "+this.GetPassword());
-		System.out.println("Balance: "+this.GetBalance());
-		System.out.println("Account type: "+this.GetTypeAsString());
-		System.out.println("Account status: " +this.GetStatusAsString());
-		System.out.println("Account number: "+this.GetActNumber());
+		System.out.println("Username: \t\t"+this.GetUsername());
+		System.out.println("Password: \t\t"+this.GetPassword());
+		System.out.println("Balance: \t\t"+this.GetBalance());
+		System.out.println("Account type: \t\t"+this.GetTypeAsString());
+		System.out.println("Account status: \t" +this.GetStatusAsString());
+		System.out.println("Account number: \t"+this.GetActNumber());
 	}
 	public void DisplayBalance()
 	{
@@ -163,13 +163,16 @@ public class Customer implements AccountInfo, java.io.Serializable{
 	}
 	public void DisplayHistory()
 	{
+		System.out.println("\n");
+		System.out.println("|------User History------|\n");
+		
 		//check if history is empty
 		if(this.alHistory.size() !=0)
 		{
 			//Loop through our history, displaying each item
 			for(int i= 0; i<this.alHistory.size();i++)
 			{
-				System.out.println(this.alHistory.get(i));
+				System.out.println(this.alHistory.get(i)+"\n");
 			}	
 		}
 		else

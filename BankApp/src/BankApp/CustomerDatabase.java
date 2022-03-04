@@ -1,11 +1,14 @@
 package BankApp;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 //import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerDatabase extends Database<Customer> implements java.io.Serializable{
 	
 	int nFocusCustomer = 0;
+	ArrayList<Integer> pendingAccounts = new ArrayList<Integer>();
 	
 	//Add a blank user to start a new Customerbase
 	public CustomerDatabase()
@@ -17,6 +20,115 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 	}
 	
 	//functionality
+	
+	public void removeCustomer()
+	{
+		InputManager inputManager = new InputManager();
+		int nAccount = inputManager.GetUserInputAsInt("Which account would you like to remove?\nPlease enter account number:");
+		if(!this.dataBase.containsKey(nAccount))
+		{
+			System.out.println("Account not found!");
+		}
+		else
+		{
+			if( inputManager.GetUserInputAsBoolean("Are you sure you want to delete account?"))
+			{
+				this.dataBase.remove(nAccount);
+				removePending(nAccount);
+				System.out.println("Account: "+nAccount+" has been removed!");
+			}
+		}
+		inputManager.Continue();
+	}
+	
+	public void removePending(int nAccount)
+	{
+		Iterator itr = pendingAccounts.iterator();
+		while(itr.hasNext())
+		{
+			if((Integer)itr.next() == nAccount)
+				itr.remove();
+		}
+	}
+
+	public void displayPending()
+	{
+		System.out.println("|--------Pending Accounts--------|\n");
+		
+		if(pendingAccounts.size() == 0)
+		{
+			System.out.println("No accounts pending activation");
+			return;
+		}
+		
+		for(int i=0;i<pendingAccounts.size();i++)
+		{
+			Customer user = this.GetAccount(pendingAccounts.get(i));
+			
+			//display accounts and they're index+1
+			System.out.println((i+1)+ ":\tUsername: "+ user.GetUsername()+"\n");
+		}
+		System.out.println("\n");
+	}
+	
+	public void pendingActivation()
+	{
+		
+		//Logic for activating account
+		displayPending();
+		if(pendingAccounts.size() ==0)
+			return;
+		
+		InputManager inputManager = new InputManager();
+		int nPendingIndex = inputManager.GetUserInputAsInt("Please select the account:");
+		if(nPendingIndex < 1 || nPendingIndex > pendingAccounts.size())
+		{
+			System.out.println("Index not found!");
+		}
+		else
+		{
+			//translate user input into array index
+			activateAccount(nPendingIndex -1);
+			
+		}
+		
+	}
+	
+	public void deactivateAccount()
+	{
+		InputManager inputManager = new InputManager();
+		int nAccount = inputManager.GetUserInputAsInt("Which account would you like to deactivate?\nEnter account number:");
+
+		if(!this.dataBase.containsKey(nAccount))
+		{
+			System.out.println("Account not found!");
+			inputManager.Continue();
+		}
+		else if(!GetAccount(nAccount).GetStatus())
+		{
+			System.out.println("Account already closed!");
+			inputManager.Continue();
+		}
+		else
+		{
+
+			Customer user = GetAccount(nAccount);
+			user.SetStatus(false);
+			this.pendingAccounts.add(user.GetActNumber());
+			System.out.println("Account #: "+ user.GetActNumber()+" Closed!");
+			
+		}
+		
+		
+	}
+	//takes an index in the pendingAccount ArrayList
+	public void activateAccount(int nPending)
+	{
+		Customer user = GetAccount(pendingAccounts.get(nPending));
+		user.SetStatus(true);
+		pendingAccounts.remove(nPending);
+		System.out.println("Account #: "+user.GetActNumber()+" Open!");		
+	}
 	public void Transfer()
 	{
 		
@@ -102,6 +214,7 @@ public class CustomerDatabase extends Database<Customer> implements java.io.Seri
 		newUser.AddHistory("Initial Deposit: "+newUser.GetBalance());
 		newUser.SetActNumber(this.AssignAccountNumber());
 		AddAccount(newUser);
+		this.pendingAccounts.add(newUser.GetActNumber());
 		return newUser.GetActNumber();
 	}
 	public int FindAccount(String sUserName)

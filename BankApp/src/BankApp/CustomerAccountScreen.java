@@ -5,7 +5,9 @@ public class CustomerAccountScreen extends UserInterface{
 	
 	public CustomerAccountScreen()
 	{
-		this.Screen.put(0, "What would you like to do today?");
+		Customer user = Main.databaseManager.GetFocusCustomer();
+		String sDisplay = "|------"+user.GetUsername()+"------|"+"\nHow can we help you today?";
+		this.Screen.put(0, sDisplay);
 		this.Screen.put(1, "View Balance");
 		this.Screen.put(2, "Withdraw");
 		this.Screen.put(3, "Deposit");
@@ -58,7 +60,7 @@ public class CustomerAccountScreen extends UserInterface{
 				//Main.user.DisplayAccountNumber();
 				break;
 			case 7://exit this screen
-				System.out.println("Returning to Log-in screen");
+				//System.out.println("Returning to Log-in screen");
 				this.bExit = true;
 				Main.databaseManager.SetFocusCustomer(0);
 				break;
